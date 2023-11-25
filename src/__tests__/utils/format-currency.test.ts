@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/formatCurrency";
+import { formatCurrency } from "../../utils/format-currency";
 
 describe("formatCurrency", () => {
   it("should be able to format currency", () => {
