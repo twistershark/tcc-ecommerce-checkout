@@ -24,6 +24,13 @@ export class OrderRepository implements OrderRepositoryInterface {
 
     const response = await this.httpClientAdapter.get(pathname);
 
-    return response;
+    const mappedResponse: Address = {
+      city: response["localidade"],
+      neighborhood: response["bairro"],
+      state: response["uf"],
+      street: response["logadouro"],
+    };
+
+    return mappedResponse;
   }
 }
