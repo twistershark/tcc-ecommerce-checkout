@@ -1,7 +1,14 @@
 import { HttpClientInterface } from "./http-client-interface";
 
-export class HttpClient<T> implements HttpClientInterface<T> {
-  async get(_pathname: string): Promise<any> {
-    return Promise.resolve([]);
+export class HttpClient implements HttpClientInterface {
+  async get(pathname: string): Promise<any> {
+    const response = await fetch(pathname);
+    const parsedResponse = await response.json();
+
+    return parsedResponse;
+  }
+
+  async post(_pathname: string, _payload: Record<string, string | number>) {
+    return Promise.resolve(true);
   }
 }
