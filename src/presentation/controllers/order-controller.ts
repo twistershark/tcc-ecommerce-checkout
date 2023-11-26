@@ -15,12 +15,12 @@ export class OrderController implements OrderControllerInterface {
   }
 
   async createOrder(payload: CreateOrderDTO): Promise<boolean> {
-    const response = this.orderService.createOrder(payload);
+    const response = await this.orderService.createOrder(payload);
     return response;
   }
 
   async getAddressByCEP(cep: string): Promise<Address> {
-    const response = this.getAddressByCEP(cep);
+    const response = await this.orderService.getAddressByCEP(cep);
     return response;
   }
 }
