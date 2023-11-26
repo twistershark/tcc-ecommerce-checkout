@@ -1,6 +1,4 @@
-import { Address } from "../../domain/object-values/address";
-
 export interface HttpClientAdapterInterface {
-  get: (pathname: string) => Promise<Address>;
+  get: (pathname: string) => Promise<Record<string, string>>;
   post: (pathname: string, payload: any) => Promise<boolean>;
 }
