@@ -10,8 +10,5 @@ export type Product = Entity & {
   productId: string;
   name: string;
   price: number;
-  image: string;
-  color: string;
-  category: Category;
   quantity: number;
 };
