@@ -2,7 +2,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-const deployURL = process.env.DEPLOY_URL || "http://localhost:3003";
+const deployURL = process.env.DEPLOY_URL || "http://localhost:3004";
+const cartURL = process.env.CART_URL || "http://localhost:3003";
 
 module.exports = (_, argv) => ({
   output: {
@@ -14,7 +15,7 @@ module.exports = (_, argv) => ({
   },
 
   devServer: {
-    port: 3003,
+    port: 3004,
     historyApiFallback: true,
   },
 
@@ -45,7 +46,9 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "checkout",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        cart: `cart@${cartURL}/remoteEntry.js`,
+      },
       exposes: {
         "./Checkout": "./src/presentation/pages/checkout",
       },
