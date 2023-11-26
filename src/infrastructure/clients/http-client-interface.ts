@@ -1,3 +1,7 @@
-export interface HttpClientInterface<T> {
-  get(pathname: string): Promise<T | T[]>;
+export interface HttpClientInterface {
+  get(pathname: string): Promise<any>;
+  post(
+    pathname: string,
+    payload: Record<string, string | number>
+  ): Promise<boolean>;
 }
