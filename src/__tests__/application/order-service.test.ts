@@ -19,7 +19,7 @@ describe("OrderService", () => {
       address: "Rua joão de prad",
       number: "SN",
       district: "Bairro",
-      city: "Luzicyty",
+      city: "Luzicity",
       state: "GO",
     };
 
