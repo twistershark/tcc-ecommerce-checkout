@@ -3,7 +3,7 @@ import { OrderRepositoryInterface } from "../../../../domain/repositories/order-
 import { CreateOrderDTO } from "../../../../presentation/dtos/create-order-dto";
 
 export class MockOrderRepository implements OrderRepositoryInterface {
-  createOrder(_payload: CreateOrderDTO): Promise<boolean> {
+  async createOrder(_payload: CreateOrderDTO): Promise<boolean> {
     return Promise.resolve(true);
   }
 
