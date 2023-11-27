@@ -15,6 +15,4 @@ export const CHECKOUT_SCHEMA = z.object({
   state: z.string().min(1, { message: "Estado é obrigatório" }),
 });
 
-export type CheckoutForm = z.infer<typeof CHECKOUT_SCHEMA>;
-
 export const TAX = 5.99;
