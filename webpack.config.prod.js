@@ -46,6 +46,7 @@ module.exports = (_, argv) => ({
       },
       exposes: {
         "./Checkout": "./src/presentation/pages/checkout",
+        "./OrderComplete": "./src/presentation/pages/order-complete",
       },
       shared: {
         ...deps,
