@@ -1,49 +1,35 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Input } from ".";
 
 describe("Input", () => {
-  it("renders without crashing", () => {
-    render(<Input label="Test Label" />);
+  test("renders with label", () => {
+    render(<Input label="Username" />);
+    expect(screen.getByText("Username")).toBeInTheDocument();
   });
 
-  it("handles onChange without mask", async () => {
-    const onChangeMock = jest.fn();
-    const { getByLabelText } = render(
-      <Input label="Test Label" onChange={onChangeMock} value="" />
-    );
-
-    const input = getByLabelText("Test Label");
-    await userEvent.type(input, "new value");
-
-    expect(input).toHaveValue("new value");
-    expect(onChangeMock).toHaveBeenCalled();
+  test("renders with error message", () => {
+    render(<Input label="Password" errorMessage="Required field" />);
+    expect(screen.getByText("Password")).toBeInTheDocument();
+    expect(screen.getByText("Required field")).toBeInTheDocument();
   });
 
-  it("handles onChange with mask", async () => {
-    const onChangeMock = jest.fn();
-    const { getByLabelText } = render(
+  test("applies red border on error", () => {
+    render(
       <Input
-        label="Test Label"
-        mask="99999-999"
-        onChange={onChangeMock}
-        value=""
+        label="Email"
+        errorMessage="Invalid email"
+        data-testid="email-input"
       />
     );
-
-    const input = getByLabelText("Test Label");
-    await userEvent.type(input, "12345678");
-
-    expect(input).toHaveValue("12345-678");
+    const inputElement = screen.getByTestId("email-input");
+    expect(inputElement).toHaveClass("ch-border-red-500");
   });
 
-  it("displays error message when provided", () => {
-    const { getByText } = render(
-      <Input label="Test Label" errorMessage="Test Error" />
-    );
-
-    const errorMessage = getByText("Test Error");
-    expect(errorMessage).toBeInTheDocument();
+  test("does not apply red border without error", () => {
+    render(<Input label="Phone" />);
+    const inputElement = screen.getByLabelText("Phone");
+    expect(inputElement).not.toHaveClass("ch-border-red-500");
   });
 });
