@@ -73,6 +73,8 @@ describe("Checkout", () => {
     expect(screen.getByText("Total")).toBeInTheDocument();
     expect(screen.getByText("Subtotal")).toBeInTheDocument();
     expect(screen.getByText("Finalizar pedido")).toBeInTheDocument();
+    expect(screen.getByText("produto1 x 3")).toBeInTheDocument();
+    expect(screen.getByText("produto2 x 2")).toBeInTheDocument();
   });
 
   it("submits the form successfully", async () => {
@@ -107,6 +109,27 @@ describe("Checkout", () => {
         city: "MockCity",
         state: "MockState",
       });
+    });
+  });
+
+  it("should not submit the form when a field has an error", async () => {
+    render(
+      <MemoryRouter>
+        <Checkout />
+      </MemoryRouter>
+    );
+
+    await userEvent.click(screen.getByText(/Finalizar pedido/i));
+
+    await waitFor(() => {
+      expect(screen.getByText("Nome é Obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("Sobrenome é obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("Email é obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("CEP inválido")).toBeInTheDocument();
+      expect(screen.getByText("Endereço é obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("Bairro é obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("Cidade é obrigatório")).toBeInTheDocument();
+      expect(screen.getByText("Estado é obrigatório")).toBeInTheDocument();
     });
   });
 
