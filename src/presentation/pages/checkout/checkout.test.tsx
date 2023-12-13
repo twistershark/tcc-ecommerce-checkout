@@ -12,7 +12,24 @@ jest.mock("../../controllers/order-controller");
 jest.mock(
   "cart/useCart",
   () => {
-    let cart: Product[] = [];
+    let cart: Product[] = [
+      {
+        id: "1",
+        name: "produto1",
+        price: 20,
+        productId: "1",
+        version: "1",
+        quantity: 3,
+      },
+      {
+        id: "2",
+        name: "produto2",
+        price: 15,
+        productId: "2",
+        version: "2",
+        quantity: 2,
+      },
+    ];
     function setCart(newCart: Product[]) {
       cart = newCart;
     }
@@ -108,5 +125,69 @@ describe("Checkout", () => {
       expect(screen.getByLabelText(/Cidade/i)).toHaveValue("MockCity");
       expect(screen.getByLabelText(/Estado/i)).toHaveValue("MockState");
     });
+  });
+
+  it("should not update the address when the request fails", async () => {
+    mockOrderController.getAddressByCEP.mockRejectedValue({
+      city: "MockCity",
+      neighborhood: "MockNeighborhood",
+      state: "MockState",
+      street: "MockStreet",
+    });
+
+    const spy = jest.spyOn(console, "error");
+
+    render(
+      <MemoryRouter>
+        <Checkout />
+      </MemoryRouter>
+    );
+
+    userEvent.type(screen.getByLabelText(/CEP/i), "12345678");
+
+    await waitFor(() => {
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
+  });
+
+  it("should show console error when the submit request fails", async () => {
+    mockOrderController.createOrder.mockRejectedValue({
+      error: true,
+    });
+
+    const spy = jest.spyOn(console, "error");
+
+    render(
+      <MemoryRouter>
+        <Checkout />
+      </MemoryRouter>
+    );
+
+    await userEvent.type(screen.getByTestId("name-input"), "John");
+    await userEvent.type(screen.getByLabelText(/Sobrenome/i), "Doe");
+    await userEvent.type(
+      screen.getByLabelText(/Email/i),
+      "john.doe@example.com"
+    );
+    await userEvent.type(screen.getByLabelText(/CEP/i), "72035501");
+    await userEvent.type(screen.getByLabelText(/Número/i), "42");
+
+    await userEvent.click(screen.getByText(/Finalizar pedido/i));
+
+    await waitFor(() => {
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
+  });
+
+  it("should show the correct subtotal price", async () => {
+    render(
+      <MemoryRouter>
+        <Checkout />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("R$ 90,00")).toBeInTheDocument();
   });
 });
