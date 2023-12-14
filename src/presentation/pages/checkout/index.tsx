@@ -11,7 +11,7 @@ import { CHECKOUT_SCHEMA, TAX } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { CreateOrderDTO } from "../../dtos/create-order-dto";
 
-export function Checkout() {
+export default function Checkout() {
   const navigate = useNavigate();
   const [cart] = useCart();
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
@@ -49,7 +49,7 @@ export function Checkout() {
   async function onSubmit(values: CreateOrderDTO) {
     try {
       const response = await orderController.createOrder(values);
-      if (response) navigate("pedido-realizado");
+      if (response) navigate("/pedido-realizado");
     } catch (err) {
       console.error(err);
     }

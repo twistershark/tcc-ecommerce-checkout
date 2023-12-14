@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import orderController from "../../controllers/order-controller";
-import { Checkout } from ".";
+import Checkout from ".";
 import { Product } from "../../../domain/entities/product";
 import { MemoryRouter } from "react-router-dom";
 

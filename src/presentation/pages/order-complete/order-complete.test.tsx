@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { OrderComplete } from ".";
+import OrderComplete from ".";
 import { MemoryRouter } from "react-router-dom";
 
 describe("OrderComplete", () => {
