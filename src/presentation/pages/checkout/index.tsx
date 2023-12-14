@@ -11,7 +11,9 @@ import { CHECKOUT_SCHEMA, TAX } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { CreateOrderDTO } from "../../dtos/create-order-dto";
 
-export function Checkout() {
+import "tailwindcss/tailwind.css";
+
+export default function Checkout() {
   const navigate = useNavigate();
   const [cart] = useCart();
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
@@ -49,7 +51,7 @@ export function Checkout() {
   async function onSubmit(values: CreateOrderDTO) {
     try {
       const response = await orderController.createOrder(values);
-      if (response) navigate("pedido-realizado");
+      if (response) navigate("/pedido-realizado");
     } catch (err) {
       console.error(err);
     }
@@ -61,10 +63,14 @@ export function Checkout() {
 
       const loadedAddress = await orderController.getAddressByCEP(cep);
 
-      setValue("city", loadedAddress?.city ?? "");
-      setValue("district", loadedAddress?.neighborhood ?? "");
-      setValue("state", loadedAddress?.state ?? "");
-      setValue("address", loadedAddress?.street ?? "");
+      setValue("city", loadedAddress?.city ?? "", { shouldValidate: true });
+      setValue("district", loadedAddress?.neighborhood ?? "", {
+        shouldValidate: true,
+      });
+      setValue("state", loadedAddress?.state ?? "", { shouldValidate: true });
+      setValue("address", loadedAddress?.street ?? "", {
+        shouldValidate: true,
+      });
     } catch (err) {
       console.error(err);
     } finally {
