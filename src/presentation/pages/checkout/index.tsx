@@ -11,6 +11,8 @@ import { CHECKOUT_SCHEMA, TAX } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { CreateOrderDTO } from "../../dtos/create-order-dto";
 
+import "tailwindcss/tailwind.css";
+
 export default function Checkout() {
   const navigate = useNavigate();
   const [cart] = useCart();
