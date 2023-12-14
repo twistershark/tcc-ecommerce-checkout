@@ -63,10 +63,14 @@ export default function Checkout() {
 
       const loadedAddress = await orderController.getAddressByCEP(cep);
 
-      setValue("city", loadedAddress?.city ?? "");
-      setValue("district", loadedAddress?.neighborhood ?? "");
-      setValue("state", loadedAddress?.state ?? "");
-      setValue("address", loadedAddress?.street ?? "");
+      setValue("city", loadedAddress?.city ?? "", { shouldValidate: true });
+      setValue("district", loadedAddress?.neighborhood ?? "", {
+        shouldValidate: true,
+      });
+      setValue("state", loadedAddress?.state ?? "", { shouldValidate: true });
+      setValue("address", loadedAddress?.street ?? "", {
+        shouldValidate: true,
+      });
     } catch (err) {
       console.error(err);
     } finally {

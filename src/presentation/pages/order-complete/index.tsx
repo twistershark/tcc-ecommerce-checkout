@@ -1,10 +1,11 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 import "tailwindcss/tailwind.css";
 
 export default function OrderComplete() {
   return (
-    <main className="ch-mx-auto ch-max-w-2xl sm:ch-px-6 sm:ch-py-24 lg:ch-max-w-7xl lg:ch-px-4 lg:ch-py-8 ch-flex ch-items-start ch-gap-8 lg:ch-gap-28 ch-w-full ch-font-sans">
+    <main className="ch-mx-auto ch-max-w-2xl sm:ch-px-6 sm:ch-py-24 lg:ch-max-w-7xl lg:ch-px-4 lg:ch-py-8 ch-flex ch-gap-8 lg:ch-gap-12 ch-w-full ch-font-sans ch-flex-col ch-items-center ch-justify-center ch-mt-20">
       <svg
         width="120"
         height="120"
@@ -22,7 +23,7 @@ export default function OrderComplete() {
 
       <Link
         to="/produtos"
-        className="ch-flex ch-items-center ch-justify-center ch-px-4 ch-py-10 ch-bg-black ch-text-white ch-font-serif ch-text-2xl"
+        className="ch-flex ch-items-center ch-justify-center ch-px-4 ch-py-6 ch-bg-black ch-text-white ch-font-serif ch-text-2xl"
       >
         Voltar para o catálogo de produtos
       </Link>
