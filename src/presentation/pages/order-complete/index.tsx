@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import useCart from "cart/useCart";
+import { useEffect } from "react";
 
 export function OrderComplete() {
+  const [_, setCart] = useCart();
+
+  useEffect(() => {
+    setCart([]);
+  }, []);
   return (
     <main className="ch-mx-auto ch-max-w-2xl sm:ch-px-6 sm:ch-py-24 lg:ch-max-w-7xl lg:ch-px-4 lg:ch-py-8 ch-flex ch-items-start ch-gap-8 lg:ch-gap-28 ch-w-full ch-font-sans">
       <svg
